@@ -1,4 +1,3 @@
-const { json } = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
