@@ -22,8 +22,9 @@ mongoose.connect('mongodb+srv://DevMi51:21OcMbswmO0125@cluster0.ncuj1.mongodb.ne
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 module.exports = app;

@@ -1,3 +1,4 @@
+//Modèle de données
 const mongoose = require('mongoose');
 //Import du plugin validator
 const uniqueValidator = require('mongoose-unique-validator');
