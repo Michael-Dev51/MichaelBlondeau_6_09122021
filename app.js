@@ -7,6 +7,9 @@ const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const app = express();
+
+//Variable d'environnement chargées depuis le fichier .env
+require('dotenv').config();
 //CORS (ajout des headers à l'objet response pour qu'il puissent communiquer entre deux origines)
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,7 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect('mongodb+srv://DevMi51:21OcMbswmO0125@cluster0.ncuj1.mongodb.net/piiquante?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_CONNEXION,
     { useNewUrlParser: true,
       useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
