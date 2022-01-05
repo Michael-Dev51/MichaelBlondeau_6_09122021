@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 //Impot de mongoose
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -7,6 +8,8 @@ const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const app = express();
+app.use(helmet());
+
 
 //Variable d'environnement chargées depuis le fichier .env
 require('dotenv').config();
