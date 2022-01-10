@@ -2,11 +2,12 @@ const express = require('express');
 const helmet = require('helmet');
 //Impot de mongoose
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+
 const path = require('path');
 //Importation des routes
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
+const cors = require('cors');
 const app = express();
 
 
@@ -14,12 +15,13 @@ const app = express();
 //Variable d'environnement chargées depuis le fichier .env
 require('dotenv').config();
 //CORS (ajout des headers à l'objet response pour qu'il puissent communiquer entre deux origines)
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
-});
+}); */
+
 
 mongoose.connect(process.env.DB_CONNEXION,
     { useNewUrlParser: true,
@@ -27,8 +29,10 @@ mongoose.connect(process.env.DB_CONNEXION,
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+app.use(express.json())
+app.use(cors());
 app.use(helmet());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
