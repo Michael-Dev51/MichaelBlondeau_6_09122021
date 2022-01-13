@@ -1,5 +1,4 @@
 const express = require('express');
-const helmet = require('helmet');
 //Impot de mongoose
 const mongoose = require('mongoose');
 
@@ -8,6 +7,8 @@ const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const cors = require('cors');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 const app = express();
 
 
@@ -31,6 +32,7 @@ mongoose.connect(process.env.DB_CONNEXION,
 
 app.use(express.json())
 app.use(cors());
+app.use(mongoSanitize());
 app.use(helmet());
 // app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
