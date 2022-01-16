@@ -11,8 +11,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const app = express();
 
-
-
 //Variable d'environnement chargées depuis le fichier .env
 require('dotenv').config();
 //CORS (ajout des headers à l'objet response pour qu'il puissent communiquer entre deux origines)
@@ -22,7 +20,6 @@ require('dotenv').config();
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 }); */
-
 
 mongoose.connect(process.env.DB_CONNEXION,
     { useNewUrlParser: true,
@@ -34,10 +31,8 @@ app.use(express.json())
 app.use(cors());
 app.use(mongoSanitize());
 app.use(helmet());
-// app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
-
 
 module.exports = app;

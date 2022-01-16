@@ -2,7 +2,7 @@ const express = require('express');
 //Création d'un routeur avec la méthode express
 const router = express.Router();
 const sauceCtrl = require('../controllers/sauce');
-const auth = require('../middleware/auth');
+const auth = require('../middleware/auth'); // Authentifie les pages de l'application
 const multer = require('../middleware/multer-config');
 
 router.post('/', auth, multer, sauceCtrl.createSauce);
